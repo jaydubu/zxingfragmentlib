@@ -116,6 +116,8 @@ final class CameraConfigurationManager {
 
     camera.setParameters(parameters);
 
+    // TODO Change calculation based on screen orientation
+    camera.setDisplayOrientation(90);
     Camera.Parameters afterParameters = camera.getParameters();
     Camera.Size afterSize = afterParameters.getPreviewSize();
     if (afterSize!= null && (cameraResolution.x != afterSize.width || cameraResolution.y != afterSize.height)) {
