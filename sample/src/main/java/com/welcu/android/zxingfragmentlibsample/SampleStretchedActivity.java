@@ -1,20 +1,14 @@
 package com.welcu.android.zxingfragmentlibsample;
 
-import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.util.DisplayMetrics;
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.welcu.android.zxingfragmentlib.BarCodeScannerFragment;
 import com.welcu.android.zxingfragmentsample.R;
@@ -22,7 +16,7 @@ import com.welcu.android.zxingfragmentsample.R;
 /**
  * Created by joyarzun on 4/8/14.
  */
-public class SampleStretchedActivity extends FragmentActivity {
+public class SampleStretchedActivity extends Activity {
   boolean torchState = false;
 
   LinearLayout layoutContent;
@@ -33,7 +27,7 @@ public class SampleStretchedActivity extends FragmentActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_stretched_sample);
 
-    FragmentManager fm = getSupportFragmentManager();
+    FragmentManager fm = getFragmentManager();
     mScannerFragment = (BarCodeScannerFragment) fm.findFragmentById(R.id.scanner_fragment);
 
     layoutContent = (LinearLayout) findViewById(R.id.layout_content);
