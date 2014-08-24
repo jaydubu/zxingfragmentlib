@@ -52,6 +52,7 @@ public final class CameraManager {
   private final CameraConfigurationManager configManager;
   private Camera camera;
   private AutoFocusManager autoFocusManager;
+  private Rect surfaceFrameRect; // Rect of the camera view
   private Rect framingRect;
   private Rect framingRectInPreview;
   private boolean initialized;
@@ -94,6 +95,7 @@ public final class CameraManager {
       }
       camera = theCamera;
     }
+    surfaceFrameRect = holder.getSurfaceFrame();
     theCamera.setPreviewDisplay(holder);
 
     if (!initialized) {
@@ -226,8 +228,8 @@ public final class CameraManager {
       int width = findDesiredDimensionInRange(screenResolution.x, MIN_FRAME_WIDTH, MAX_FRAME_WIDTH);
       int height = findDesiredDimensionInRange(screenResolution.y, MIN_FRAME_HEIGHT, MAX_FRAME_HEIGHT);
 
-      int leftOffset = (screenResolution.x - width) / 2;
-      int topOffset = (screenResolution.y - height) / 2;
+      int leftOffset = (surfaceFrameRect.width() - width) / 2;
+      int topOffset = (surfaceFrameRect.height() - height) / 2;
       framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);
       Log.d(TAG, "Calculated framing rect: " + framingRect);
     }
