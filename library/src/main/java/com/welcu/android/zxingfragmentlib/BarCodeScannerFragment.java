@@ -3,6 +3,7 @@ package com.welcu.android.zxingfragmentlib;
 import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -85,6 +86,7 @@ public class BarCodeScannerFragment extends Fragment implements SurfaceHolder.Ca
   private BeepManager beepManager;
   private AmbientLightManager ambientLightManager;
   private IResultCallback mCallBack;
+  private boolean landscapeMode = false;
 
   public interface IResultCallback {
     void result(Result lastResult);
@@ -110,6 +112,7 @@ public class BarCodeScannerFragment extends Fragment implements SurfaceHolder.Ca
     inactivityTimer = new InactivityTimer(getActivity());
     beepManager = new BeepManager(getActivity());
     ambientLightManager = new AmbientLightManager(getActivity());
+    landscapeMode = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
     PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
   }
@@ -223,7 +226,11 @@ public class BarCodeScannerFragment extends Fragment implements SurfaceHolder.Ca
     this.mCallBack = mCallBack;
   }
 
-  @TargetApi(Build.VERSION_CODES.FROYO)
+    public boolean isLandscapeMode() {
+        return landscapeMode;
+    }
+
+    @TargetApi(Build.VERSION_CODES.FROYO)
   private int getCurrentOrientation() {
     int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
     switch (rotation) {
